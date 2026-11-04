@@ -15,6 +15,45 @@ Generate `.excalidraw` JSON files that **argue visually**, not just display info
 
 To make this skill produce diagrams in your own brand style, edit `color-palette.md`. Everything else in this file is universal design methodology and Excalidraw best practices.
 
+## Important guidelines for structure and styling
+
+IMPORTANT: These guidelines override any other guidelines in this `SKILL.md` file.
+
+* **Text**
+  * **Font family (`fontFamily` parameter)**
+    * Use a monospace font for technical terms (such as file names, function names, database table names, etc). `Cascadia` (`fontFamily: 3`) is good.
+    * Use a sans-serif font for everything else. `Helvetica` (`fontFamily: 2`) is good.
+    * If you need to see the full reference of all available font families, see `FONT_FAMILY` at https://github.com/excalidraw/excalidraw/blob/v0.18.1/packages/excalidraw/constants.ts#L130-L140
+  * **"Fake bold" text styling**
+    * Excalidraw doesn't support bold text. However, you can easily create a "fake bold" effect, by duplicating the `text` element and then shifting the duplicated element horizontally by a tiny offset (such as `0.5` units).
+* **Lines and arrows**
+  * When drawing a line with an arrowhead at the end, always use `endArrowhead: "triangle"`.
+* **Shapes and borders**
+  * **Don't leave content floating in empty unbounded space**
+    * Always endeavour to enclose content within a suitable "container" rectangle.
+  * **Use nested rectangles as much as possible (where relevant)**
+    * These can represent hierarchies of entities (grandparent, parent, child, grandchild, etc). For example:
+      * Filesystem structures (root directory, child directory, file within child directory, etc).
+      * Databases (database, table within the database, column within the table, etc).
+  * **Never draw a border for any shape (rectangle, rounded rectangle, ellipse, etc)**
+    * Instead, ensure that the shape's colour has a strong contrast against the surrounding colour.
+      * For example, a light grey rectangle, surrounded by dark blue outside it.
+    * This is particularly important for nested rectangles, where each level of nesting must use a colour which strongly constrasts with both the previous (higher) level and the next (deeper) level.
+      * For example, you could use two alternating colours for a set of nested rectangles:
+        * Level 1 - dark blue
+        * Level 2 - light grey
+        * Level 3 - dark blue
+        * Level 4 - light grey
+        * Level 5 - dark blue
+        * Level 6 - light grey
+      * Alternatively, you could cycle through a set of three colours:
+        * Level 1 - dark blue
+        * Level 2 - light blue
+        * Level 3 - white
+        * Level 4 - dark blue
+        * Level 5 - light blue
+        * Level 6 - white
+
 ---
 
 ## Core Philosophy
