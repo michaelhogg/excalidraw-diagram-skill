@@ -38,7 +38,7 @@ All elements share these:
 | `text` | The display text |
 | `originalText` | Same as text |
 | `fontSize` | Size in pixels (16-20 recommended) |
-| `fontFamily` | 3 for monospace (use this) |
+| `fontFamily` | 3 (`Cascadia`, monospace) or 2 (`Helvetica`, sans-serif) or, in exceptional circumstances, one of the other `FONT_FAMILY` values (see `SKILL.md`) |
 | `textAlign` | "left", "center", "right" |
 | `verticalAlign` | "top", "middle", "bottom" |
 | `containerId` | ID of parent shape |

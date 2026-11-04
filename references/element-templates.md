@@ -2,7 +2,7 @@
 
 **You're allowed, and indeed encouraged, to invent your own additional colors with additional meanings, if that'd be beneficial for the diagram that you're drawing.** For example, pink, purple or yellow might be useful in a particular diagram. The only important rule is to not use the three Meaning Colors in `color-palette.md` (green, red and strong orange) in other contexts with different meanings.
 
-Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` and `backgroundColor` values are placeholders — pull actual colors from `color-palette.md` based on the element's semantic purpose, or use an additional color as described above.
+Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` and `backgroundColor` values are placeholders — pull actual colors from `color-palette.md` based on the element's semantic purpose, or use an additional color as described above. The `fontFamily` value is also a placeholder, so replace it with a number.
 
 ## Free-Floating Text (no container)
 ```json
@@ -14,7 +14,7 @@ Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` an
   "text": "Section Title",
   "originalText": "Section Title",
   "fontSize": 20,
-  "fontFamily": 3,
+  "fontFamily": "<number: 3 (Cascadia, monospace) or 2 (Helvetica, sans-serif) or, in exceptional circumstances, one of the other FONT_FAMILY values in SKILL.md>",
   "textAlign": "left",
   "verticalAlign": "top",
   "strokeColor": "<text color from palette>",
@@ -127,7 +127,7 @@ Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` an
   "text": "Process",
   "originalText": "Process",
   "fontSize": 16,
-  "fontFamily": 3,
+  "fontFamily": "<number: 3 (Cascadia, monospace) or 2 (Helvetica, sans-serif) or, in exceptional circumstances, one of the other FONT_FAMILY values in SKILL.md>",
   "textAlign": "center",
   "verticalAlign": "middle",
   "strokeColor": "<text color from palette that is listed for the parent shape's color>",

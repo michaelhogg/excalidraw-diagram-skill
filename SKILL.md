@@ -23,7 +23,7 @@ IMPORTANT: These guidelines override any other guidelines in this `SKILL.md` fil
   * **Font family (`fontFamily` parameter)**
     * Use a monospace font for technical terms (such as file names, function names, database table names, etc). `Cascadia` (`fontFamily: 3`) is good.
     * Use a sans-serif font for everything else. `Helvetica` (`fontFamily: 2`) is good.
-    * If you need to see the full reference of all available font families, see `FONT_FAMILY` at https://github.com/excalidraw/excalidraw/blob/v0.18.1/packages/excalidraw/constants.ts#L130-L140
+    * In exceptional circumstances, you can use one of the other font families. If you need to see the full reference of all available font families, see `FONT_FAMILY` at https://github.com/excalidraw/excalidraw/blob/v0.18.1/packages/excalidraw/constants.ts#L130-L140
   * **"Fake bold" text styling**
     * Excalidraw doesn't support bold text. However, you can easily create a "fake bold" effect, by duplicating the `text` element and then shifting the duplicated element horizontally by a tiny offset (such as `0.5` units).
 * **Lines and arrows**
@@ -458,7 +458,7 @@ Position alone doesn't show relationships. If A relates to B, there must be an a
 }
 ```
 
-Settings: `fontSize: 16`, `fontFamily: 3`, `textAlign: "center"`, `verticalAlign: "middle"`
+Settings: `fontSize: 16`, `fontFamily: 3` (`Cascadia`, monospace) or `fontFamily: 2` (`Helvetica`, sans-serif) or, in exceptional circumstances, one of the other `FONT_FAMILY` values, `textAlign: "center"`, `verticalAlign: "middle"`
 
 ---
 
@@ -594,7 +594,7 @@ npm install
 
 ### Technical
 16. **Text clean**: `text` contains only readable words
-17. **Font**: `fontFamily: 3`
+17. **Font**: `fontFamily: 3` (`Cascadia`, monospace) for technical terms, `fontFamily: 2` (`Helvetica`, sans-serif) for everything else or, in exceptional circumstances, one of the other `FONT_FAMILY` values
 18. **Roughness**: `roughness: 0` for clean/modern (unless hand-drawn style requested)
 19. **Opacity**: `opacity: 100` for all elements (no transparency)
 20. **Container ratio**: <30% of text elements should be inside containers
