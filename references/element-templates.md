@@ -1,6 +1,8 @@
 # Element Templates
 
-Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` and `backgroundColor` values are placeholders — always pull actual colors from `color-palette.md` based on the element's semantic purpose.
+**You're allowed, and indeed encouraged, to invent your own additional colors with additional meanings, if that'd be beneficial for the diagram that you're drawing.** For example, pink, purple or yellow might be useful in a particular diagram. The only important rule is to not use the three Meaning Colors in `color-palette.md` (green, red and strong orange) in other contexts with different meanings.
+
+Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` and `backgroundColor` values are placeholders — pull actual colors from `color-palette.md` based on the element's semantic purpose, or use an additional color as described above.
 
 ## Free-Floating Text (no container)
 ```json
@@ -15,7 +17,7 @@ Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` an
   "fontFamily": 3,
   "textAlign": "left",
   "verticalAlign": "top",
-  "strokeColor": "<title color from palette>",
+  "strokeColor": "<text color from palette>",
   "backgroundColor": "transparent",
   "fillStyle": "solid",
   "strokeWidth": 1,
@@ -95,8 +97,8 @@ Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` an
   "type": "rectangle",
   "id": "elem1",
   "x": 100, "y": 100, "width": 180, "height": 90,
-  "strokeColor": "<stroke from palette based on semantic purpose>",
-  "backgroundColor": "<fill from palette based on semantic purpose>",
+  "strokeColor": "transparent",
+  "backgroundColor": "<color from palette based on semantic purpose>",
   "fillStyle": "solid",
   "strokeWidth": 2,
   "strokeStyle": "solid",
@@ -128,7 +130,7 @@ Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` an
   "fontFamily": 3,
   "textAlign": "center",
   "verticalAlign": "middle",
-  "strokeColor": "<text color — match parent shape's stroke or use 'on light/dark fills' from palette>",
+  "strokeColor": "<text color from palette that is listed for the parent shape's color>",
   "backgroundColor": "transparent",
   "fillStyle": "solid",
   "strokeWidth": 1,
@@ -155,7 +157,7 @@ Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` an
   "type": "arrow",
   "id": "arrow1",
   "x": 282, "y": 145, "width": 118, "height": 0,
-  "strokeColor": "<arrow color — typically matches source element's stroke from palette>",
+  "strokeColor": "<arrow color from palette: see Text and Line Colors>",
   "backgroundColor": "transparent",
   "fillStyle": "solid",
   "strokeWidth": 2,

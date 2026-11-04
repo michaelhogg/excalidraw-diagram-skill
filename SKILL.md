@@ -11,9 +11,9 @@ Generate `.excalidraw` JSON files that **argue visually**, not just display info
 
 ## Customization
 
-**All colors and brand-specific styles live in one file:** `references/color-palette.md`. Read it before generating any diagram and use it as the single source of truth for all color choices — shape fills, strokes, text colors, evidence artifact backgrounds, everything.
+**The standard colors live in one file:** `references/color-palette.md`. Read it before generating any diagram and use it as the source of truth for the standard color choices — shape colors, line colors, text colors and evidence artifact colors.
 
-To make this skill produce diagrams in your own brand style, edit `color-palette.md`. Everything else in this file is universal design methodology and Excalidraw best practices.
+To change the colors in the diagrams that this skill produces, edit `color-palette.md`. Everything else in this file is universal design methodology and Excalidraw best practices.
 
 ## Important guidelines for structure and styling
 
@@ -30,23 +30,23 @@ IMPORTANT: These guidelines override any other guidelines in this `SKILL.md` fil
   * When drawing a line with an arrowhead at the end, always use `endArrowhead: "triangle"`.
 * **Shapes and borders**
   * **Don't leave content floating in empty unbounded space**
-    * Always endeavour to enclose content within a suitable "container" rectangle.
+    * Always endeavor to enclose content within a suitable "container" rectangle.
   * **Use nested rectangles as much as possible (where relevant)**
     * These can represent hierarchies of entities (grandparent, parent, child, grandchild, etc). For example:
       * Filesystem structures (root directory, child directory, file within child directory, etc).
       * Databases (database, table within the database, column within the table, etc).
   * **Never draw a border for any shape (rectangle, rounded rectangle, ellipse, etc)**
-    * Instead, ensure that the shape's colour has a strong contrast against the surrounding colour.
-      * For example, a light grey rectangle, surrounded by dark blue outside it.
-    * This is particularly important for nested rectangles, where each level of nesting must use a colour which strongly constrasts with both the previous (higher) level and the next (deeper) level.
-      * For example, you could use two alternating colours for a set of nested rectangles:
+    * Instead, ensure that the shape's color has a strong contrast against the surrounding color.
+      * For example, a light gray rectangle, surrounded by dark blue outside it.
+    * This is particularly important for nested rectangles, where each level of nesting must use a color which strongly contrasts with both the previous (higher) level and the next (deeper) level.
+      * For example, you could use two alternating colors for a set of nested rectangles:
         * Level 1 - dark blue
-        * Level 2 - light grey
+        * Level 2 - light gray
         * Level 3 - dark blue
-        * Level 4 - light grey
+        * Level 4 - light gray
         * Level 5 - dark blue
-        * Level 6 - light grey
-      * Alternatively, you could cycle through a set of three colours:
+        * Level 6 - light gray
+      * Alternatively, you could cycle through a set of three colors:
         * Level 1 - dark blue
         * Level 2 - light blue
         * Level 3 - white
@@ -193,7 +193,7 @@ Evidence artifacts, code snippets, and concrete examples within each section. Th
 | The shape itself carries meaning (decision diamond, etc.) | Typography alone creates sufficient hierarchy |
 | It represents a distinct "thing" in the system | It's a section title, subtitle, or annotation |
 
-**Typography as hierarchy**: Use font size, weight, and color to create visual hierarchy without boxes. A 28px title doesn't need a rectangle around it.
+**Typography as hierarchy**: Use font size and weight to create visual hierarchy without boxes. A 28px title doesn't need a rectangle around it.
 
 **The container test**: For each boxed element, ask "Would this work as free-floating text?" If yes, remove the container.
 
@@ -387,15 +387,16 @@ Choose shape based on what it represents—or use no shape at all:
 
 ## Color as Meaning
 
-Colors encode information, not decoration. Every color choice should come from `references/color-palette.md` — the semantic shape colors, text hierarchy colors, and evidence artifact colors are all defined there.
+Colors encode information, not decoration. Start with the colors in `references/color-palette.md` — the meaning colors, neutral colors, text and line colors, and evidence artifact colors are all defined there.
 
 **Key principles:**
-- Each semantic purpose (start, end, decision, AI, error, etc.) has a specific fill/stroke pair
-- Free-floating text uses color for hierarchy (titles, subtitles, details — each at a different level)
+- Green always indicates a positive meaning and red always indicates a negative meaning, and neither color is used for anything else
+- Strong orange can indicate a warning and isn't used for anything else, and neutral colors have no special meaning
+- Text, lines, arrows and marker dots are black on light colors and white on dark colors, and other colors can be used if they're beneficial (such as red for a line which has a negative meaning, and for the text which labels that line)
 - Evidence artifacts (code snippets, JSON examples) use their own dark background + colored text scheme
-- Always pair a darker stroke with a lighter fill for contrast
+- Each shape uses one color with no border, and that color must contrast strongly with its surroundings
 
-**Do not invent new colors.** If a concept doesn't fit an existing semantic category, use Primary/Neutral or Secondary.
+**You're allowed, and indeed encouraged, to invent your own additional colors with additional meanings, if that'd be beneficial for the diagram that you're drawing** (such as pink, purple or yellow). The only important rule is to not use the three Meaning Colors (green, red and strong orange) in other contexts with different meanings. If a concept has no particular meaning, use Primary/Neutral or Secondary.
 
 ---
 
@@ -584,7 +585,7 @@ npm install
 ### Container Discipline
 10. **Minimal containers**: Could any boxed element work as free-floating text instead?
 11. **Lines as structure**: Are tree/timeline patterns using lines + text rather than boxes?
-12. **Typography hierarchy**: Are font size and color creating visual hierarchy (reducing need for boxes)?
+12. **Typography hierarchy**: Are font size and weight creating visual hierarchy (reducing need for boxes)?
 
 ### Structural
 13. **Connections**: Every relationship has an arrow or line
