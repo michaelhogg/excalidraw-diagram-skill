@@ -8,7 +8,7 @@ Compatible with any coding agent that supports skills. For agents that read from
 
 - **Diagrams that argue, not display.** Every shape/group of shapes mirrors the concept it represents — fan-outs for one-to-many, timelines for sequences, convergence for aggregation. No uniform card grids.
 - **Evidence artifacts.** As an example, technical diagrams include real code snippets and actual JSON payloads.
-- **Built-in visual validation.** A Playwright-based render pipeline lets the agent see its own output, catch layout issues (overlapping text, misaligned arrows, unbalanced spacing), and fix them in a loop before delivering.
+- **Built-in visual validation.** A render pipeline (using [`@excalidraw/cli`](https://www.npmjs.com/package/@excalidraw/cli)) lets the agent see its own output, catch layout issues (overlapping text, misaligned arrows, unbalanced spacing), and fix them in a loop before delivering.
 - **Brand-customizable.** All colors and brand styles live in a single file (`references/color-palette.md`). Swap it out and every diagram follows your palette.
 
 ## Installation
@@ -16,7 +16,7 @@ Compatible with any coding agent that supports skills. For agents that read from
 Clone or download this repo, then copy it into your project's `.claude/skills/` directory:
 
 ```bash
-git clone https://github.com/coleam00/excalidraw-diagram-skill.git
+git clone https://github.com/michaelhogg/excalidraw-diagram-skill.git
 cp -r excalidraw-diagram-skill .claude/skills/excalidraw-diagram
 ```
 
@@ -32,8 +32,7 @@ Just tell your agent: *"Set up the Excalidraw diagram skill renderer by followin
 
 ```bash
 cd .claude/skills/excalidraw-diagram/references
-uv sync
-uv run playwright install chromium
+npm install
 ```
 
 ## Usage
@@ -57,7 +56,5 @@ excalidraw-diagram/
     color-palette.md                # Brand colors (edit this to customize)
     element-templates.md            # JSON templates for each element type
     json-schema.md                  # Excalidraw JSON format reference
-    render_excalidraw.py            # Render .excalidraw to PNG
-    render_template.html            # Browser template for rendering
-    pyproject.toml                  # Python dependencies (playwright)
+    package.json                    # NPM dependencies (@excalidraw/cli)
 ```

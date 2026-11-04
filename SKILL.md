@@ -450,11 +450,27 @@ You cannot judge a diagram from JSON alone. After generating or editing the Exca
 
 ### How to Render
 
+To render the `/path/to/diagram.excalidraw` file to a new PNG image at `/path/to/diagram.png`:
+
 ```bash
-cd .claude/skills/excalidraw-diagram/references && uv run python render_excalidraw.py <path-to-file.excalidraw>
+cd .claude/skills/excalidraw-diagram/references && ./node_modules/.bin/excalidraw render /path/to/diagram.excalidraw --scale 1 --max-width 2048 --max-height 2048 --out /path/to/diagram.png
 ```
 
-This outputs a PNG next to the `.excalidraw` file. Then use the **Read tool** on the PNG to actually view it.
+Then use the **Read tool** on the PNG to actually view it.
+
+For very large diagrams, you may need to increase the `--scale`, `--max-width` and `--max-height` parameters in order to render the PNG with sufficient detail. For example, you could successively double the value of each parameter until the rendered PNG has sufficient detail:
+
+```
+--scale 2 --max-width 4096  --max-height 4096
+--scale 4 --max-width 8192  --max-height 8192
+--scale 8 --max-width 16384 --max-height 16384
+```
+
+The maximum supported values are:
+
+* `--scale 16`
+* `--max-width 16384`
+* `--max-height 16384`
 
 ### The Loop
 
@@ -501,11 +517,12 @@ The loop is done when:
 - You'd be comfortable showing it to someone without caveats
 
 ### First-Time Setup
+
 If the render script hasn't been set up yet:
+
 ```bash
 cd .claude/skills/excalidraw-diagram/references
-uv sync
-uv run playwright install chromium
+npm install
 ```
 
 ---
