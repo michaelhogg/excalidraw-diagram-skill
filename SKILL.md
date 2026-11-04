@@ -33,7 +33,7 @@ IMPORTANT: These guidelines override any other guidelines in this `SKILL.md` fil
     * Always endeavor to enclose content within a suitable "container" rectangle.
   * **Use nested rectangles as much as possible (where relevant)**
     * These can represent hierarchies of entities (grandparent, parent, child, grandchild, etc). For example:
-      * Filesystem structures (root directory, child directory, file within child directory, etc).
+      * Filesystem structures (root directory, child directory, file within child directory, etc), especially where there are fewer files and folders, and where the diagram needs to show the contents of the files. If the diagram needs to show a lot of files and folders within a small space, the Tree pattern would be better.
       * Databases (database, table within the database, column within the table, etc).
   * **Never draw a border for any shape (rectangle, rounded rectangle, ellipse, etc)**
     * Instead, ensure that the shape's color has a strong contrast against the surrounding color.
@@ -164,7 +164,7 @@ Evidence artifacts, code snippets, and concrete examples within each section. Th
 | Card grid layout | Visual structure matches conceptual structure |
 | Icons decorating text | Shapes that ARE the meaning |
 | Same container for everything | Distinct visual vocabulary per concept |
-| Everything in a box | Free-floating text with selective containers |
+| Flat, disconnected boxes | Nested rectangles that mirror how the content is structured |
 
 ### Simple vs Comprehensive (Know Which You Need)
 
@@ -178,24 +178,6 @@ Evidence artifacts, code snippets, and concrete examples within each section. Th
 | Viewer learns the structure | Viewer learns the structure AND the details |
 
 **Simple diagrams** are fine for abstract concepts, quick overviews, or when the audience already knows the details. **Comprehensive diagrams** are needed for technical architectures, tutorials, educational content, or when you want the diagram itself to teach.
-
----
-
-## Container vs. Free-Floating Text
-
-**Not every piece of text needs a shape around it.** Default to free-floating text. Add containers only when they serve a purpose.
-
-| Use a Container When... | Use Free-Floating Text When... |
-|------------------------|-------------------------------|
-| It's the focal point of a section | It's a label or description |
-| It needs visual grouping with other elements | It's supporting detail or metadata |
-| Arrows need to connect to it | It describes something nearby |
-| The shape itself carries meaning (decision diamond, etc.) | Typography alone creates sufficient hierarchy |
-| It represents a distinct "thing" in the system | It's a section title, subtitle, or annotation |
-
-**Typography as hierarchy**: Use font size and weight to create visual hierarchy without boxes. A 28px title doesn't need a rectangle around it.
-
-**The container test**: For each boxed element, ask "Would this work as free-floating text?" If yes, remove the container.
 
 ---
 
@@ -222,8 +204,8 @@ For each concept, find the visual pattern that mirrors its behavior:
 |-------------------|------------------|
 | Spawns multiple outputs | **Fan-out** (radial arrows from center) |
 | Combines inputs into one | **Convergence** (funnel, arrows merging) |
-| Has hierarchy/nesting | **Tree** (lines + free-floating text) |
-| Is a sequence of steps | **Timeline** (line + dots + free-floating labels) |
+| Has hierarchy/nesting | **Tree** (lines + text, inside a container rectangle) |
+| Is a sequence of steps | **Timeline** (line + dots + labels, inside a container rectangle) |
 | Loops or improves continuously | **Spiral/Cycle** (arrow returning to start) |
 | Is an abstract state or context | **Cloud** (overlapping ellipses) |
 | Transforms input to output | **Assembly line** (before → process → after) |
@@ -311,7 +293,7 @@ Multiple inputs merging through arrows to single output. Use for: aggregation, f
 ```
 
 ### Tree (Hierarchy)
-Parent-child branching with connecting lines and free-floating text (no boxes needed). Use for: file systems, org charts, taxonomies.
+Parent-child branching with connecting lines and text labels, inside a container rectangle. Use for: org charts, taxonomies, and file systems where the diagram needs to show a lot of files and folders within a small space (if there are fewer files and folders, and the diagram needs to show the contents of the files, use nested rectangles instead).
 ```
   label
   ├── label
@@ -319,7 +301,7 @@ Parent-child branching with connecting lines and free-floating text (no boxes ne
   │   └── label
   └── label
 ```
-Use `line` elements for the trunk and branches, free-floating text for labels.
+Use `line` elements for the trunk and branches, and `text` elements for the labels.
 
 ### Spiral/Cycle (Continuous Loop)
 Elements in sequence with arrow returning to start. Use for: feedback loops, iterative processes, evolution.
@@ -346,9 +328,9 @@ Two parallel structures with visual contrast. Use for: before/after, options, tr
 Visual whitespace or barrier between sections. Use for: phase changes, context resets, boundaries.
 
 ### Lines as Structure
-Use lines (type: `line`, not arrows) as primary structural elements instead of boxes:
-- **Timelines**: Vertical or horizontal line with small dots (10-20px ellipses) at intervals, free-floating labels beside each dot
-- **Tree structures**: Vertical trunk line + horizontal branch lines, with free-floating text labels (no boxes needed)
+Use lines (type: `line`, not arrows) as primary structural elements inside a container rectangle:
+- **Timelines**: Vertical or horizontal line with small dots (10-20px ellipses) at intervals, text labels beside each dot
+- **Tree structures**: Vertical trunk line + horizontal branch lines, with text labels
 - **Dividers**: Thin dashed lines to separate sections
 - **Flow spines**: A central line that elements relate to, rather than connecting boxes
 
@@ -361,27 +343,25 @@ Timeline:           Tree:
   ●─── Label 3        └── item
 ```
 
-Lines + free-floating text often creates a cleaner result than boxes + contained text.
+Enclose each of these patterns in a container rectangle, so that its labels aren't left floating in empty space.
 
 ---
 
 ## Shape Meaning
 
-Choose shape based on what it represents—or use no shape at all:
+Choose shape based on what it represents:
 
 | Concept Type | Shape | Why |
 |--------------|-------|-----|
-| Labels, descriptions, details | **none** (free-floating text) | Typography creates hierarchy |
-| Section titles, annotations | **none** (free-floating text) | Font size/weight is enough |
+| Labels, descriptions, details | no shape of its own, placed inside a container rectangle | The container groups the text with the content that it describes |
+| Section titles, annotations | no shape of its own, placed inside the section's container rectangle | Font size/weight makes the text stand out within its container |
 | Markers on a timeline | small `ellipse` (10-20px) | Visual anchor, not container |
 | Start, trigger, input | `ellipse` | Soft, origin-like |
 | End, output, result | `ellipse` | Completion, destination |
 | Decision, condition | `diamond` | Classic decision symbol |
 | Process, action, step | `rectangle` | Contained action |
 | Abstract state, context | overlapping `ellipse` | Fuzzy, cloud-like |
-| Hierarchy node | lines + text (no boxes) | Structure through lines |
-
-**Rule**: Default to no container. Add shapes only when they carry meaning. Aim for <30% of text elements to be inside containers.
+| Hierarchy node | lines + text, inside a container rectangle | Structure through lines |
 
 ---
 
@@ -423,7 +403,7 @@ Instead of full shapes, use small dots (10-20px ellipses) as:
 - Timeline markers
 - Bullet points
 - Connection nodes
-- Visual anchors for free-floating text
+- Visual anchors for text labels
 
 ---
 
@@ -582,28 +562,22 @@ npm install
 8. **Variety**: Does each major concept use a different visual pattern?
 9. **No uniform containers**: Avoided card grids and equal boxes?
 
-### Container Discipline
-10. **Minimal containers**: Could any boxed element work as free-floating text instead?
-11. **Lines as structure**: Are tree/timeline patterns using lines + text rather than boxes?
-12. **Typography hierarchy**: Are font size and weight creating visual hierarchy (reducing need for boxes)?
-
 ### Structural
-13. **Connections**: Every relationship has an arrow or line
-14. **Flow**: Clear visual path for the eye to follow
-15. **Hierarchy**: Important elements are larger/more isolated
+10. **Connections**: Every relationship has an arrow or line
+11. **Flow**: Clear visual path for the eye to follow
+12. **Hierarchy**: Important elements are larger/more isolated
 
 ### Technical
-16. **Text clean**: `text` contains only readable words
-17. **Font**: `fontFamily: 3` (`Cascadia`, monospace) for technical terms, `fontFamily: 2` (`Helvetica`, sans-serif) for everything else or, in exceptional circumstances, one of the other `FONT_FAMILY` values
-18. **Roughness**: `roughness: 0` for clean/modern (unless hand-drawn style requested)
-19. **Opacity**: `opacity: 100` for all elements (no transparency)
-20. **Container ratio**: <30% of text elements should be inside containers
+13. **Text clean**: `text` contains only readable words
+14. **Font**: `fontFamily: 3` (`Cascadia`, monospace) for technical terms, `fontFamily: 2` (`Helvetica`, sans-serif) for everything else or, in exceptional circumstances, one of the other `FONT_FAMILY` values
+15. **Roughness**: `roughness: 0` for clean/modern (unless hand-drawn style requested)
+16. **Opacity**: `opacity: 100` for all elements (no transparency)
 
 ### Visual Validation (Render Required)
-21. **Rendered to PNG**: Diagram has been rendered and visually inspected
-22. **No text overflow**: All text fits within its container
-23. **No overlapping elements**: Shapes and text don't overlap unintentionally
-24. **Even spacing**: Similar elements have consistent spacing
-25. **Arrows land correctly**: Arrows connect to intended elements without crossing others
-26. **Readable at export size**: Text is legible in the rendered PNG
-27. **Balanced composition**: No large empty voids or overcrowded regions
+17. **Rendered to PNG**: Diagram has been rendered and visually inspected
+18. **No text overflow**: All text fits within its container
+19. **No overlapping elements**: Shapes and text don't overlap unintentionally
+20. **Even spacing**: Similar elements have consistent spacing
+21. **Arrows land correctly**: Arrows connect to intended elements without crossing others
+22. **Readable at export size**: Text is legible in the rendered PNG
+23. **Balanced composition**: No large empty voids or overcrowded regions
