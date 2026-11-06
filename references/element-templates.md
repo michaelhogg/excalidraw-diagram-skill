@@ -67,7 +67,8 @@ The `boundElements` array must list the rectangle's text label, and also every a
   "roundness": {"type": 3},
   "boundElements": [
     {"id": "text1", "type": "text"},
-    {"id": "arrow1", "type": "arrow"}
+    {"id": "arrow1", "type": "arrow"},
+    {"id": "arrow2", "type": "arrow"}
   ]
 }
 ```
