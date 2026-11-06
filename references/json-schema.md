@@ -2,6 +2,8 @@
 
 This reference describes the schema which the current Excalidraw app writes, and which the bundled `@excalidraw/cli` renderer reads.
 
+Most fields are optional. The `Required` and `Default` columns describe rendering with `@excalidraw/cli` version 0.2.0: a required field which is missing makes the render fail, and an optional field which is omitted receives its default value. Omit any optional field whose default value is correct for your diagram.
+
 ## File Structure
 
 ```json
@@ -36,48 +38,48 @@ This reference describes the schema which the current Excalidraw app writes, and
 
 ## Common Properties
 
-All elements share these:
+All elements can use these:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `id` | string | Unique identifier |
-| `type` | string | Element type |
-| `x`, `y` | number | Position in pixels of the top-left corner of the element's bounding box |
-| `width`, `height` | number | Size in pixels |
-| `angle` | number | Rotation in radians (normally `0`) |
-| `strokeColor` | string | Border color (hex or `"transparent"`) |
-| `backgroundColor` | string | Fill color (hex or `"transparent"`) |
-| `fillStyle` | string | `"solid"`, `"hachure"`, `"cross-hatch"` or `"zigzag"` |
-| `strokeWidth` | number | `1` (thin), `2` (medium) or `4` (bold) |
-| `strokeStyle` | string | `"solid"`, `"dashed"` or `"dotted"` |
-| `roughness` | number | `0` (smooth), `1` (default) or `2` (rough) |
-| `opacity` | number | 0-100 |
-| `roundness` | object or null | Corner rounding (see "Roundness" below). `null` means sharp corners. |
-| `seed` | number | Random seed for roughness |
-| `version` | number | Edit counter (use `1` when generating) |
-| `versionNonce` | number | Random number which changes on every edit |
-| `index` | string or null | Fractional index for z-ordering (such as `"a0"`, `"a1"`). Use `null` when generating, and Excalidraw will assign indices based on array order. |
-| `isDeleted` | boolean | Always `false` when generating |
-| `groupIds` | string[] | IDs of the groups which the element belongs to (innermost group first) |
-| `frameId` | string or null | ID of the `frame` which contains the element |
-| `boundElements` | array | Elements which are bound to this element, as `{"id": "...", "type": "text"}` or `{"id": "...", "type": "arrow"}` objects. Use `[]` when there are none. |
-| `updated` | number | Timestamp (in milliseconds) of the last edit |
-| `link` | string or null | Hyperlink URL |
-| `locked` | boolean | Whether the element is locked |
+| Property | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| `id` | string | Yes | | Unique identifier |
+| `type` | string | Yes | | Element type |
+| `x`, `y` | number | Yes | | Position in pixels of the top-left corner of the element's bounding box |
+| `width`, `height` | number | Yes | | Size in pixels |
+| `angle` | number | No | `0` | Rotation in radians |
+| `strokeColor` | string | No | `"#1e1e1e"` | Color of the text, line, arrow or shape outline (hex or `"transparent"`). The default isn't a palette color, so set this field. |
+| `backgroundColor` | string | No | `"transparent"` | Fill color (hex or `"transparent"`) |
+| `fillStyle` | string | No | `"solid"` | `"solid"`, `"hachure"`, `"cross-hatch"` or `"zigzag"` |
+| `strokeWidth` | number | No | `2` | `1` (thin), `2` (medium) or `4` (bold) |
+| `strokeStyle` | string | No | `"solid"` | `"solid"`, `"dashed"` or `"dotted"` |
+| `roughness` | number | No | `1` | `0` (smooth), `1` (hand-drawn) or `2` (rough). The default is hand-drawn, so set `roughness: 0` for shapes, lines and arrows in a clean diagram. |
+| `opacity` | number | No | `100` | 0-100 |
+| `roundness` | object or null | No | `null` | Corner rounding (see "Roundness" below). `null` means sharp corners. |
+| `seed` | number | No | `1` | Random seed for roughness. Shapes of the same size which have the same seed are drawn identically, so give each element a different seed when `roughness` is above 0. |
+| `version` | number | No | `1` | Edit counter |
+| `versionNonce` | number | No | `0` | Random number which changes on every edit |
+| `index` | string or null | No | `null` | Fractional index for z-ordering (such as `"a0"`, `"a1"`). Excalidraw assigns indices based on the order of the `elements` array. |
+| `isDeleted` | boolean | No | `false` | Whether the element has been deleted |
+| `groupIds` | string[] | No | `[]` | IDs of the groups which the element belongs to (innermost group first) |
+| `frameId` | string or null | No | `null` | ID of the `frame` which contains the element |
+| `boundElements` | array | No | `[]` | Elements which are bound to this element, as `{"id": "...", "type": "text"}` or `{"id": "...", "type": "arrow"}` objects |
+| `updated` | number | No | Time of loading | Timestamp (in milliseconds) of the last edit |
+| `link` | string or null | No | `null` | Hyperlink URL |
+| `locked` | boolean | No | `false` | Whether the element is locked |
 
 ## Text-Specific Properties
 
-| Property | Description |
-|----------|-------------|
-| `text` | The displayed text. For text inside a container, this includes the line breaks (`\n`) which Excalidraw inserts when it wraps the text to fit the container. |
-| `originalText` | The text before wrapping. Same as `text` when the text doesn't need to wrap. |
-| `fontSize` | Size in pixels (16-20 recommended) |
-| `fontFamily` | 3 (`Cascadia`, monospace) or 2 (`Helvetica`, sans-serif) or, in exceptional circumstances, one of the other `FONT_FAMILY` values (see `SKILL.md`) |
-| `lineHeight` | Line-height multiplier, which depends on `fontFamily` (see "Line Heights" below) |
-| `textAlign` | `"left"`, `"center"` or `"right"` |
-| `verticalAlign` | `"top"`, `"middle"` or `"bottom"` |
-| `containerId` | ID of the parent shape (or arrow), or `null` for free-floating text |
-| `autoResize` | `true` when the text box's width automatically fits the text. Use `true` when generating. |
+| Property | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `text` | No | `""` | The displayed text. For text inside a container, this includes the line breaks (`\n`) which Excalidraw inserts when it wraps the text to fit the container. A text element which has no text isn't rendered. |
+| `originalText` | No | Same as `text` | The text before wrapping. Same as `text` when the text doesn't need to wrap. |
+| `fontSize` | No | `20` | Size in pixels (16-20 recommended) |
+| `fontFamily` | No | `5` (`Excalifont`) | 3 (`Cascadia`, monospace) or 2 (`Helvetica`, sans-serif) or, in exceptional circumstances, one of the other `FONT_FAMILY` values (see `SKILL.md`). The default is a handwriting font, so set this field. |
+| `lineHeight` | No | Calculated from `height` | Line-height multiplier, which depends on `fontFamily` (see "Line Heights" below). Set this field, because an inaccurate `height` would otherwise change the spacing of the lines. |
+| `textAlign` | No | `"left"` | `"left"`, `"center"` or `"right"` |
+| `verticalAlign` | No | `"top"` | `"top"`, `"middle"` or `"bottom"` |
+| `containerId` | No | `null` | ID of the parent shape (or arrow), or `null` for free-floating text |
+| `autoResize` | No | `true` | `true` when the text box's width automatically fits the text |
 
 ### Line Heights
 
@@ -103,16 +105,16 @@ When `textAlign` is `"center"` and `verticalAlign` is `"middle"`, the text is ce
 
 ## Arrow-Specific Properties
 
-| Property | Description |
-|----------|-------------|
-| `points` | Array of `[x, y]` coordinates, relative to the arrow's `x` and `y`. The first point is always `[0, 0]`. |
-| `startBinding` | Connection to the start shape, or `null` (see "Binding Format" below) |
-| `endBinding` | Connection to the end shape, or `null` |
-| `startArrowhead` | Arrowhead at the start point (see "Arrowheads" below) |
-| `endArrowhead` | Arrowhead at the end point |
-| `elbowed` | `true` for an elbow arrow (which only has horizontal and vertical segments), or `false` for a straight/curved arrow |
-| `fixedSegments` | Elbow arrows only: segments which the user has manually moved, or `null` |
-| `startIsSpecial`, `endIsSpecial` | Elbow arrows only: internal routing flags. Use `null` when generating. |
+| Property | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `points` | Yes | | Array of `[x, y]` coordinates, relative to the arrow's `x` and `y`. The first point is always `[0, 0]`. |
+| `startBinding` | No | `null` | Connection to the start shape (see "Binding Format" below). Set this field if the arrow should stay attached to the shape. |
+| `endBinding` | No | `null` | Connection to the end shape. Set this field if the arrow should stay attached to the shape. |
+| `startArrowhead` | No | `null` | Arrowhead at the start point (see "Arrowheads" below) |
+| `endArrowhead` | No | `"arrow"` | Arrowhead at the end point. `SKILL.md` says to use `"triangle"`, so set this field. |
+| `elbowed` | No | `false` | `true` for an elbow arrow (which only has horizontal and vertical segments), or `false` for a straight/curved arrow |
+| `fixedSegments` | No | `null` | Elbow arrows only: segments which the user has manually moved |
+| `startIsSpecial`, `endIsSpecial` | No | `null` | Elbow arrows only: internal routing flags |
 
 * An arrow's `width` and `height` must equal the size of the bounding box of its `points`.
 * An arrow with 2 points is straight. For a curved arrow, use 3+ points and `"roundness": {"type": 2}`. For an elbow arrow, use `"elbowed": true`, `"roundness": null` and only horizontal and vertical segments.
@@ -126,11 +128,11 @@ The legacy values `"dot"` and `"crowfoot_*"` are automatically converted to `"ci
 
 ## Line-Specific Properties
 
-A `line` has the same `points`, `startArrowhead` and `endArrowhead` properties as an arrow, plus:
+A `line` has the same `points`, `startArrowhead` and `endArrowhead` properties as an arrow (`points` is required, and both arrowheads default to `null`), plus:
 
-| Property | Description |
-|----------|-------------|
-| `polygon` | `true` when the line is a closed shape (its first and last points are the same), otherwise `false` |
+| Property | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `polygon` | No | `false` | `true` when the line is a closed shape (its first and last points are the same), otherwise `false` |
 
 A line can't bind to shapes: its `startBinding` and `endBinding` are always `null`.
 

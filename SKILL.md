@@ -237,7 +237,7 @@ After generating the JSON, you MUST run the render-view-fix loop until the diagr
 1. **Create the base file** with the JSON wrapper (`type`, `version`, `appState`, `files`) and the first section of elements.
 2. **Add one section per edit.** Each section gets its own dedicated pass — take your time with it. Think carefully about the layout, spacing, and how this section connects to what's already there.
 3. **Use descriptive string IDs** (e.g., `"trigger_rect"`, `"arrow_fan_left"`) so cross-section references are readable.
-4. **Namespace seeds by section** (e.g., section 1 uses 100xxx, section 2 uses 200xxx) to avoid collisions.
+4. **If the diagram uses `seed` values, namespace them by section** (e.g., section 1 uses 100xxx, section 2 uses 200xxx) to avoid collisions. Seeds are only needed for hand-drawn diagrams (`roughness` above 0).
 5. **Update cross-section bindings** as you go. When a new section's element needs to bind to an element from a previous section (e.g., an arrow connecting sections), edit the earlier element's `boundElements` array at the same time.
 
 **Phase 2: Review the whole**
@@ -396,7 +396,7 @@ For clean, professional diagrams:
 - `strokeWidth: 3` — Bold. Use sparingly for emphasis (main flow line, key connections).
 
 ### Opacity
-**Always use `opacity: 100` for all elements.** Use color, size, and stroke width to create hierarchy instead of transparency.
+**Keep all elements fully opaque.** Either omit `opacity` (which defaults to 100) or set `opacity: 100`. Use color, size, and stroke width to create hierarchy instead of transparency.
 
 ### Small Markers Instead of Shapes
 Instead of full shapes, use small dots (10-20px ellipses) as:
@@ -571,7 +571,7 @@ npm install
 13. **Text clean**: `text` contains only readable words
 14. **Font**: `fontFamily: 3` (`Cascadia`, monospace) for technical terms, `fontFamily: 2` (`Helvetica`, sans-serif) for everything else or, in exceptional circumstances, one of the other `FONT_FAMILY` values
 15. **Roughness**: `roughness: 0` for clean/modern (unless hand-drawn style requested)
-16. **Opacity**: `opacity: 100` for all elements (no transparency)
+16. **Opacity**: All elements are fully opaque (`opacity` is omitted or set to 100)
 
 ### Visual Validation (Render Required)
 17. **Rendered to PNG**: Diagram has been rendered and visually inspected
